@@ -7,7 +7,8 @@ Given an image dataset, the Perceptual Duplicate Network finds images that are i
 
 To use the PDN on your dataset, clone the repository and install the requirements from the `requirements.txt` file. The requirements specify specific versions, though these are likely quite flexible.
 Navigate to the directory of the repository and run the following command
-```python PDN.py "C:/SrcFolder/" "C:/DstFolder" --certainty 7```
+```python PDN.py "C:/SrcFolder/" "C:/DstFolder/" --certainty 7```
+
 Manditory positional arguments are:
 - src (string) : A string containing the absolute or relative path where the dataset is stored. The dataset is assumed to be entirely images in a single folder. This path must exist. Images cannot contain "\" in their name.
 - dst (string) : A string containing the destination where the filtered dataset should be copied to. The dataset will be copied with the same image names as they did in the source folder. This folder does not need to exist.
