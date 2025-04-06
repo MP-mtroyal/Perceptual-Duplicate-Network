@@ -28,7 +28,7 @@ def applyJpegTransform(x):
     out = torch.stack(newXs).to(inputDevice)
     return out
 
-def filterDuplicates(src, dst, modelPath, certainty):
+def filterDuplicates(src, dst, modelPath, certainty, clusterSize):
     
     # ========================= Setup ==================================
     # Img size to use 
@@ -53,7 +53,7 @@ def filterDuplicates(src, dst, modelPath, certainty):
     model.eval()
     
     # ===================== Clustering ===================================
-    imgClusters = clusterDataset(src, clusterSize=128)
+    imgClusters = clusterDataset(src, clusterSize=clusterSize)
     
     # ===================== Duplicate Detection ==========================
 
