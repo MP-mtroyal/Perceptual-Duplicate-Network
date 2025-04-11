@@ -102,6 +102,9 @@ def loadImages(path: str, maxImgs=-1) -> List[VectorImage]:
     imgPaths = glob(path + "*.*")
     if maxImgs > 0:
         imgPaths = imgPaths[:maxImgs]
+    if len(imgPaths) == 0:
+        print(f'ERROR: Images not found in {path}')
+        exit()
     loadingBar = LoadingBar(len(imgPaths), title="Loading Images", interval=25)
     imgs = []
     for imgPath in imgPaths:

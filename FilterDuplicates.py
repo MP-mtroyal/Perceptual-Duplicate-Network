@@ -3,6 +3,7 @@ import torch
 from torchvision import transforms
 from torchvision.io import encode_jpeg, decode_jpeg
 import os
+from pathlib import Path
 
 from libs.InfoPlotting import LoadingBar
 from libs.ClusterFuncs import clusterDataset
@@ -45,7 +46,7 @@ def filterDuplicates(src, dst, modelPath, certainty, clusterSize):
     print(f'Loading Model from {modelPath}')
     model = DetectorDeep(size=detImgSize)
     try:
-        model.load_state_dict(torch.load(modelPath))
+        model.load_state_dict(torch.load(modelPath, map_location=torch.device(device)))
     except:
         print(f'Could not load model from {modelPath}')
         exit()
@@ -122,10 +123,11 @@ def filterDuplicates(src, dst, modelPath, certainty, clusterSize):
     # Copy all Unique images
     loadingBar = LoadingBar(len(uniqueImgPathes), title="Copying Unique Images", interval=500)
 
+    dstPath = Path(dst)
+
     for path in uniqueImgPathes:
         loadingBar.update()
-        # Glob seperates by \, use this to grab image name
-        imgName = path.split('\\')[-1]
-        shutil.copy(path, dst + imgName)
+        imgName = Path(path).name
+        shutil.copy(path, dstPath / imgName)
 
     loadingBar.complete()
